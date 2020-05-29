@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
   if (intern)
     return res
       .status(400)
-      .send("You have already registered for this internship");
+      .send({ message: "You have already registered for this internship" });
 
   intern = new Intern({
     firstName,
@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
   } catch (ex) {
     for (field in ex.errors) {
       console.log(ex.errors[field].message);
-      res.status(500).send("something failed");
+      res.status(500).send({ message: "something failed" });
     }
   }
 });
