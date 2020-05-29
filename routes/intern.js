@@ -1,8 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const Intern = require("../models/intern");
+const { validationResult } = require("express-validator");
 
 router.post("/", async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).send({ message: errors.array() });
+  }
+
   let {
     firstName,
     lastName,
